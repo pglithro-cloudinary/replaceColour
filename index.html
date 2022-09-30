@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+<style>
+* {font-family:sans-serif}
+img {
+  border: 5px solid #555;
+  min-width:100px;
+  min-height:100px;
+}
+input {margin:5px;}
+</style>
+<script>
+function update(){
+	var url = document.getElementById("cldURL").value;
+	newUrl = "https://res.cloudinary.com/demo/image/fetch/";
+	newUrl += "e_replace_color:"
+	newUrl += document.getElementById("finishColour").value.substring(1);
+	newUrl += ":";
+	newUrl += document.getElementById("tolerance").value;
+    newUrl += ":";
+	newUrl += document.getElementById("startColour").value.substring(1);
+    newUrl += "/";
+	newUrl += url;
+	document.getElementById("img").src = "https://res.cloudinary.com/demo/image/fetch/" + url;
+	document.getElementById("newImg").src = newUrl;
+
+}
+</script>
+</head>
+<body id="cl-container">
+<form onsubmit="">
+<label>Cld URL:</label>
+<input type="text" style="width:800px" onchange="update();" id="cldURL" value=""><br/>
+<label>Tolerance:</label>
+<input type="text" value="40" onchange="update();" id="tolerance" style="width:40px">
+<label>Start Colour:</label>
+<input type="color" value="#ff0000" onchange="update();" id="startColour">
+<label>Finish Colour:</label>
+<input type="color" value="#0000ff" onchange="update();" id="finishColour">
+
+</form>
+<br/><br/>
+<img id="img" src="">
+
+<img id="newImg" src="">
+
+</body>
+</html>
