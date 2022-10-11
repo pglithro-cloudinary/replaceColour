@@ -28,7 +28,7 @@ function update(){
     newUrl += "/";
 	newUrl += url;
 	var img = document.getElementById("img");
-	img.cross-origin="anonymous";
+	img.crossOrigin="anonymous";
 	img.src = url;
 	waitForImageToLoad(img).then(()=>{
   // Image have loaded.
