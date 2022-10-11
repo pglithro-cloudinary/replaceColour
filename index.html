@@ -3,16 +3,21 @@
 <head>
 <style>
 * {font-family:sans-serif}
-img {
+img, canvas  {
   border: 5px solid #555;
-  min-width:100px;
-  min-height:100px;
+  min-width:200px;
+  min-height:200px;
 }
+canvas { display:inline; }
 input {margin:5px;}
 </style>
 <script>
+function waitForImageToLoad(imageElement){
+  return new Promise(resolve=>{imageElement.onload = resolve})
+}
+
 function update(){
-	var url = document.getElementById("cldURL").value;
+	var url = document.getElementById("orgURL").value;
 	newUrl = "https://res.cloudinary.com/demo/image/fetch/";
 	newUrl += "e_replace_color:"
 	newUrl += document.getElementById("finishColour").value.substring(1);
@@ -22,16 +27,33 @@ function update(){
 	newUrl += document.getElementById("startColour").value.substring(1);
     newUrl += "/";
 	newUrl += url;
-	document.getElementById("img").src = "https://res.cloudinary.com/demo/image/fetch/" + url;
+	var img = document.getElementById("img");
+	img.cross-origin="anonymous";
+	img.src = url;
+	waitForImageToLoad(img).then(()=>{
+  // Image have loaded.
+	console.log("test");
+	var canvas = document.getElementById("example");
+	var ctx = canvas.getContext("2d");
+	console.log(img.src);
+	console.log(img.width);
+	canvas.width = img.width;
+	canvas.height = img.height;
+	ctx.drawImage(img, 0, 0);
+});
 	document.getElementById("newImg").src = newUrl;
 
 }
+
+window.onload = function() {
+
+};
 </script>
 </head>
 <body id="cl-container">
 <form onsubmit="">
 <label>URL:</label>
-<input type="text" style="width:800px" onchange="update();" id="cldURL" value=""><br/>
+<input type="text" style="width:800px" onchange="update();" id="orgURL" value="https://res.cloudinary.com/hadar/image/upload/mate-finish-mobile.jpg"><br/>
 <label>Tolerance:</label>
 <input type="text" value="40" onchange="update();" id="tolerance" style="width:40px">
 <label>Start Colour:</label>
@@ -41,9 +63,14 @@ function update(){
 
 </form>
 <br/><br/>
-<img id="img" src="">
 
+<div id="status"></div>
+
+<canvas id="example" width="200" height="200"></canvas>
 <img id="newImg" src="">
+
+
+<img id="img" src="" style="display:none;">
 
 </body>
 </html>
