@@ -34,8 +34,6 @@ function update(){
  	// Image have loaded.
 	var canvas = document.getElementById("example");
 	var ctx = canvas.getContext("2d");
-	console.log(img.src);
-	console.log(img.width);
 	canvas.width = img.width;
 	canvas.height = img.height;
 	ctx.drawImage(img, 0, 0);
