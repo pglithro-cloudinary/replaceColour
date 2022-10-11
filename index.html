@@ -31,8 +31,7 @@ function update(){
 	img.crossOrigin="anonymous";
 	img.src = url;
 	waitForImageToLoad(img).then(()=>{
-  // Image have loaded.
-	console.log("test");
+ 	// Image have loaded.
 	var canvas = document.getElementById("example");
 	var ctx = canvas.getContext("2d");
 	console.log(img.src);
@@ -41,7 +40,9 @@ function update(){
 	canvas.height = img.height;
 	ctx.drawImage(img, 0, 0);
 });
-	document.getElementById("newImg").src = newUrl;
+	var newImg = document.getElementById("newImg");
+	newImg.crossOrigin="anonymous";
+	newImg.src = newUrl;
 
 }
 
@@ -53,7 +54,7 @@ window.onload = function() {
 <body id="cl-container">
 <form onsubmit="">
 <label>URL:</label>
-<input type="text" style="width:800px" onchange="update();" id="orgURL" value="https://res.cloudinary.com/hadar/image/upload/mate-finish-mobile.jpg"><br/>
+<input type="text" style="width:800px" onchange="update();" id="orgURL" value=""><br/>
 <label>Tolerance:</label>
 <input type="text" value="40" onchange="update();" id="tolerance" style="width:40px">
 <label>Start Colour:</label>
